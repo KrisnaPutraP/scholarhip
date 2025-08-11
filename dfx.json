@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "scholarship_backend": {
+      "candid": "src/scholarship_backend/scholarship_backend.did",
+      "package": "scholarship_backend",
+      "type": "rust"
+    },
+    "scholarship_frontend": {
+      "dependencies": [
+        "scholarship_backend"
+      ],
+      "source": [
+        "src/scholarship_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "scholarship_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

@@ -1,3 +1,152 @@
+type DegreeLevel = variant {
+  HighSchool;
+  Bachelor;
+  Master;
+  PhD;
+};
+
+type ScholarshipType = variant {
+  FullScholarship;
+  PartialScholarship;
+  ResearchGrant;
+  ExchangeProgram;
+};
+
+type Coverage = variant {
+  Full;
+  Partial: nat8;
+  None;
+};
+
+type Status = variant {
+  Bookmarked;
+  InProgress;
+  Submitted;
+  Accepted;
+  Rejected;
+};
+
+type Education = record {
+  degree_level: DegreeLevel;
+  major: text;
+  university: text;
+  gpa: float32;
+  graduation_year: nat32;
+  country: text;
+};
+
+type Preferences = record {
+  preferred_countries: vec text;
+  preferred_fields: vec text;
+  scholarship_type: ScholarshipType;
+  min_amount: opt nat32;
+};
+
+type UserProfile = record {
+  id: principal;
+  name: text;
+  email: text;
+  education: Education;
+  skills: vec text;
+  preferences: Preferences;
+  created_at: nat64;
+  updated_at: nat64;
+};
+
+type Eligibility = record {
+  min_gpa: float32;
+  required_degree: opt DegreeLevel;
+  age_limit: opt nat8;
+  nationalities: vec text;
+  required_skills: vec text;
+  work_experience_years: opt nat8;
+};
+
+type Benefits = record {
+  tuition_coverage: Coverage;
+  living_allowance: opt nat32;
+  travel_allowance: bool;
+  health_insurance: bool;
+  duration_months: nat32;
+};
+
+type Scholarship = record {
+  id: text;
+  name: text;
+  provider: text;
+  country: text;
+  scholarship_type: ScholarshipType;
+  degree_levels: vec DegreeLevel;
+  fields_of_study: vec text;
+  eligibility: Eligibility;
+  benefits: Benefits;
+  deadline: nat64;
+  application_url: text;
+  description: text;
+  created_at: nat64;
+};
+
+type MatchResult = record {
+  scholarship_id: text;
+  user_id: principal;
+  compatibility_score: float32;
+  matched_criteria: vec text;
+  missing_criteria: vec text;
+  matched_at: nat64;
+};
+
+type ApplicationStatus = record {
+  id: text;
+  user_id: principal;
+  scholarship_id: text;
+  status: Status;
+  notes: text;
+  created_at: nat64;
+  updated_at: nat64;
+};
+
+type ApiResponse = variant {
+  Ok: record {
+    success: bool;
+    message: text;
+    data: opt vec nat8;
+  };
+  Err: record {
+    success: bool;
+    message: text;
+  };
+};
+
 service : {
-    "greet": (text) -> (text) query;
+  // User Management
+  register_user: (text, text, Education, vec text, Preferences) -> (text);
+  update_user_profile: (opt text, opt text, opt Education, opt vec text, opt Preferences) -> (text);
+  get_my_profile: () -> (text) query;
+  
+  // Scholarship Management
+  add_scholarship: (Scholarship) -> (text);
+  get_scholarship_by_id: (text) -> (text) query;
+  get_all_scholarships: () -> (text) query;
+  search_scholarships: (opt text, opt DegreeLevel, opt text) -> (text) query;
+  count_scholarships: () -> (nat32) query;
+  get_scholarship_details: (text) -> (text) query;
+  manual_init_scholarships: () -> (text);
+  
+  // Matching & Recommendations
+  get_my_recommendations: (opt nat32) -> (text) query;
+  calculate_match_score: (text) -> (text) query;
+  get_my_matches: () -> (text) query;
+  
+  // Application Tracking
+  create_application: (text, text) -> (text);
+  update_application_status: (text, Status) -> (text);
+  get_my_applications: () -> (text) query;
+  
+  // Bookmarks
+  bookmark_scholarship: (text) -> (text);
+  get_my_bookmarks: () -> (text) query;
+  
+  // Utility Functions
+  test_connection: () -> (text) query;
+  greet: (text) -> (text) query;
 }

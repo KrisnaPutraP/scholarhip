@@ -1,0 +1,13 @@
+nohup: ignoring input
+Starting Scholarship Notification Agent...
+Agent address: agent1qtan6sysc9uhaqdvw4v68duqr3xhst8xa99ly8aczpfsmagx8l37s7gxrts
+Listening for notification requests on port 8002
+INFO:     [scholarship_notifier]: Starting agent with address: agent1qtan6sysc9uhaqdvw4v68duqr3xhst8xa99ly8aczpfsmagx8l37s7gxrts
+INFO:     [scholarship_notifier]: Agent inspector available at https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8002&address=agent1qtan6sysc9uhaqdvw4v68duqr3xhst8xa99ly8aczpfsmagx8l37s7gxrts
+INFO:     [scholarship_notifier]: Starting server on http://0.0.0.0:8002 (Press CTRL+C to quit)
+INFO:__main__:Running periodic deadline check...
+INFO:__main__:Deadline check completed
+INFO:__main__:Running daily new scholarship check...
+INFO:__main__:New scholarship check completed
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [uagents.registration]: Almanac contract registration is up to date!

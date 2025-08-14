@@ -30,12 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <button id="testBtn" style="margin: 5px; padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer;">
             🔌 Test Backend
           </button>
-          <button id="initBtn" style="margin: 5px; padding: 12px 20px; background: #ffc107; color: #212529; border: none; border-radius: 8px; cursor: pointer;">
-            🔄 Initialize Data
-          </button>
-          <button id="loadBtn" style="margin: 5px; padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
-            📚 Load Scholarships
-          </button>
+
+
           <button id="matchBtn" style="margin: 5px; padding: 12px 20px; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer;">
             🎯 Get My Matches
           </button>
@@ -123,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Add event listeners
   document.getElementById('testBtn').addEventListener('click', testConnection);
-  document.getElementById('initBtn').addEventListener('click', initializeData);
-  document.getElementById('loadBtn').addEventListener('click', loadScholarships);
+
+
   document.getElementById('matchBtn').addEventListener('click', loadScholarshipsWithMatching);
   document.getElementById('profileBtn').addEventListener('click', checkProfile);
   document.getElementById('registerBtn').addEventListener('click', showRegister);

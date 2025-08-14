@@ -14,17 +14,17 @@ impl MatchingEngine {
         let mut matched_criteria = Vec::new();
         let mut missing_criteria = Vec::new();
 
-        // Academic Match (30%)
+        // Academic Match (25%) - Reduced
         let academic_score = Self::calculate_academic_match(user, scholarship, &mut matched_criteria, &mut missing_criteria);
-        score += academic_score * 0.3;
+        score += academic_score * 0.25;
 
-        // Field Match (25%)
+        // Field Match (20%) - Reduced  
         let field_score = Self::calculate_field_match(user, scholarship, &mut matched_criteria, &mut missing_criteria);
-        score += field_score * 0.25;
+        score += field_score * 0.2;
 
-        // Location Match (20%)
+        // Location Match (30%) - Increased for user preference priority
         let location_score = Self::calculate_location_match(user, scholarship, &mut matched_criteria, &mut missing_criteria);
-        score += location_score * 0.2;
+        score += location_score * 0.3;
 
         // Eligibility Match (15%)
         let eligibility_score = Self::calculate_eligibility_match(user, scholarship, &mut matched_criteria, &mut missing_criteria);
@@ -111,24 +111,29 @@ impl MatchingEngine {
         matched: &mut Vec<String>,
         _missing: &mut Vec<String>,
     ) -> f32 {
-        // Check if scholarship country matches user preferences
-        let user_countries = &user.preferences.preferred_countries;
-        let scholarship_countries = vec![scholarship.country.clone()];
-        let matching_countries: Vec<String> = user_countries
+        // Check if scholarship country matches user preferences (case-insensitive)
+        let user_countries: Vec<String> = user.preferences.preferred_countries
             .iter()
-            .filter(|country| scholarship_countries.contains(country))
-            .cloned()
+            .map(|c| c.to_lowercase())
             .collect();
+        let scholarship_country = scholarship.country.to_lowercase();
+        
+        // Check for exact match or partial match (e.g., "turkey" matches "Turkey")
+        let has_match = user_countries.iter().any(|country| {
+            country == &scholarship_country || 
+            scholarship_country.contains(country) ||
+            country.contains(&scholarship_country)
+        });
             
-        if user_countries.iter().any(|country| scholarship_countries.contains(country)) {
-            matched.push(format!("Preferred Country: {}", matching_countries.join(", ")));
+        if has_match {
+            matched.push(format!("Preferred Country Match: {} ✓", scholarship.country));
             1.0
         } else if user.preferences.preferred_countries.is_empty() {
             // User has no preference
             0.75
         } else {
-            // Partial score for non-preferred but not excluded
-            0.5
+            // No match for preferred country
+            0.3  // Reduced from 0.5 to better penalize non-preferred countries
         }
     }
 
@@ -195,25 +200,43 @@ impl MatchingEngine {
             return 1.0;
         }
 
+        // Convert to lowercase for case-insensitive matching
+        let user_skills_lower: Vec<String> = user.skills.iter().map(|s| s.to_lowercase()).collect();
+        let required_skills_lower: Vec<String> = scholarship.eligibility.required_skills.iter().map(|s| s.to_lowercase()).collect();
+
         let matched_skills: Vec<String> = scholarship
             .eligibility
             .required_skills
             .iter()
-            .filter(|skill| user.skills.contains(skill))
+            .filter(|skill| {
+                let skill_lower = skill.to_lowercase();
+                user_skills_lower.iter().any(|user_skill| {
+                    user_skill == &skill_lower || 
+                    user_skill.contains(&skill_lower) ||
+                    skill_lower.contains(user_skill)
+                })
+            })
             .cloned()
             .collect();
 
         let match_percentage = matched_skills.len() as f32 / scholarship.eligibility.required_skills.len() as f32;
 
         if !matched_skills.is_empty() {
-            matched.push(format!("Skills: {}", matched_skills.join(", ")));
+            matched.push(format!("Skills Match: {}", matched_skills.join(", ")));
         }
 
         let missing_skills: Vec<String> = scholarship
             .eligibility
             .required_skills
             .iter()
-            .filter(|skill| !user.skills.contains(skill))
+            .filter(|skill| {
+                let skill_lower = skill.to_lowercase();
+                !user_skills_lower.iter().any(|user_skill| {
+                    user_skill == &skill_lower || 
+                    user_skill.contains(&skill_lower) ||
+                    skill_lower.contains(user_skill)
+                })
+            })
             .cloned()
             .collect();
 

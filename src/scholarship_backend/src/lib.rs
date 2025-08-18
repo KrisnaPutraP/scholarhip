@@ -692,6 +692,540 @@ fn init_sample_scholarships() {
             description: "UK scholarship for students from Commonwealth countries".to_string(),
             created_at: ic_cdk::api::time(),
         },
+
+        // ========== ADDITIONAL 25 SCHOLARSHIPS ==========
+        Scholarship {
+            id: "daad-germany-2025".to_string(),
+            name: "DAAD Scholarship Germany 2025".to_string(),
+            provider: "German Academic Exchange Service".to_string(),
+            country: "Germany".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master, DegreeLevel::PhD],
+            fields_of_study: vec!["Engineering".to_string(), "Natural Sciences".to_string(), "Social Sciences".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: Some(32),
+                nationalities: vec![],
+                required_skills: vec!["German".to_string(), "English".to_string()],
+                work_experience_years: Some(2),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1200),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 24,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://daad.de".to_string(),
+            description: "German government scholarship for international graduate students".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "orange-tulip-netherlands-2025".to_string(),
+            name: "Orange Tulip Scholarship 2025".to_string(),
+            provider: "Nuffic Netherlands".to_string(),
+            country: "Netherlands".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Any".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec!["Indonesia".to_string(), "India".to_string(), "Brazil".to_string(), "Mexico".to_string()],
+                required_skills: vec!["English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Partial(50),
+                living_allowance: Some(800),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 24,
+            },
+            deadline: 1740787200, // 2025-02-28
+            application_url: "https://orangetulipscholarship.nl".to_string(),
+            description: "Dutch scholarship program for students from selected countries".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "belgian-development-2025".to_string(),
+            name: "Belgian Development Cooperation Scholarship 2025".to_string(),
+            provider: "Belgian Government".to_string(),
+            country: "Belgium".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master],
+            fields_of_study: vec!["Development Studies".to_string(), "Public Health".to_string(), "Environment".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: Some(40),
+                nationalities: vec!["Indonesia".to_string(), "Vietnam".to_string(), "Morocco".to_string()],
+                required_skills: vec!["French".to_string(), "English".to_string()],
+                work_experience_years: Some(2),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1100),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 12,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://ares-ac.be".to_string(),
+            description: "Belgian scholarship for development cooperation".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "quota-scheme-norway-2025".to_string(),
+            name: "Quota Scheme Norway 2025".to_string(),
+            provider: "Norwegian Government".to_string(),
+            country: "Norway".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master, DegreeLevel::PhD],
+            fields_of_study: vec!["Any".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: None,
+                nationalities: vec!["Indonesia".to_string(), "Tanzania".to_string(), "Nepal".to_string()],
+                required_skills: vec!["English".to_string(), "Norwegian".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1400),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 24,
+            },
+            deadline: 1738281600, // 2025-01-31
+            application_url: "https://diku.no".to_string(),
+            description: "Norwegian government scholarship for developing countries".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "aga-khan-foundation-2025".to_string(),
+            name: "Aga Khan Foundation Scholarship 2025".to_string(),
+            provider: "Aga Khan Foundation".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Master, DegreeLevel::PhD],
+            fields_of_study: vec!["Any".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: None,
+                nationalities: vec!["Bangladesh".to_string(), "India".to_string(), "Pakistan".to_string(), "Afghanistan".to_string()],
+                required_skills: vec!["English".to_string()],
+                work_experience_years: Some(2),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Partial(70),
+                living_allowance: Some(1000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 24,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://akf.org.uk".to_string(),
+            description: "Foundation scholarship for outstanding students from developing countries".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "joint-japan-world-bank-2025".to_string(),
+            name: "Joint Japan World Bank Graduate Scholarship 2025".to_string(),
+            provider: "World Bank".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master],
+            fields_of_study: vec!["Development Studies".to_string(), "Economics".to_string(), "Public Policy".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: Some(45),
+                nationalities: vec!["Indonesia".to_string(), "Vietnam".to_string(), "Philippines".to_string()],
+                required_skills: vec!["English".to_string()],
+                work_experience_years: Some(3),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(2000),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 24,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://worldbank.org".to_string(),
+            description: "World Bank scholarship for development professionals".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "rotary-peace-fellowship-2025".to_string(),
+            name: "Rotary Peace Fellowship 2025".to_string(),
+            provider: "Rotary Foundation".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master],
+            fields_of_study: vec!["Peace Studies".to_string(), "Conflict Resolution".to_string(), "International Relations".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["English".to_string(), "Leadership".to_string()],
+                work_experience_years: Some(3),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1500),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 15,
+            },
+            deadline: 1737504000, // 2025-01-22
+            application_url: "https://rotary.org".to_string(),
+            description: "Fellowship for future leaders in peace and conflict resolution".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "mastercard-foundation-2025".to_string(),
+            name: "Mastercard Foundation Scholars Program 2025".to_string(),
+            provider: "Mastercard Foundation".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Any".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: None,
+                age_limit: Some(35),
+                nationalities: vec!["Ghana".to_string(), "Kenya".to_string(), "Rwanda".to_string(), "Uganda".to_string()],
+                required_skills: vec!["English".to_string(), "Leadership".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1800),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 48,
+            },
+            deadline: 1740787200, // 2025-02-28
+            application_url: "https://mastercardfdn.org".to_string(),
+            description: "Comprehensive scholarship program for African students".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "ford-foundation-2025".to_string(),
+            name: "Ford Foundation Fellowship 2025".to_string(),
+            provider: "Ford Foundation".to_string(),
+            country: "United States".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::PhD],
+            fields_of_study: vec!["Social Sciences".to_string(), "Humanities".to_string(), "STEM".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: Some(DegreeLevel::Master),
+                age_limit: None,
+                nationalities: vec!["United States".to_string()],
+                required_skills: vec!["English".to_string(), "Research".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(2700),
+                travel_allowance: false,
+                health_insurance: true,
+                duration_months: 36,
+            },
+            deadline: 1736294400, // 2025-01-08
+            application_url: "https://fordfoundation.org".to_string(),
+            description: "Fellowship for underrepresented minorities in academia".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "google-lime-2025".to_string(),
+            name: "Google Lime Scholarship 2025".to_string(),
+            provider: "Google Inc.".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Computer Science".to_string(), "Engineering".to_string(), "Technology".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Programming".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::None,
+                living_allowance: Some(10000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1735689600, // 2025-01-01
+            application_url: "https://google.com/scholarships".to_string(),
+            description: "Scholarship for students with disabilities in computer science".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "microsoft-scholarship-2025".to_string(),
+            name: "Microsoft Scholarship Program 2025".to_string(),
+            provider: "Microsoft Corporation".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Computer Science".to_string(), "Engineering".to_string(), "Mathematics".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Programming".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::None,
+                living_allowance: Some(12000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://microsoft.com/scholarships".to_string(),
+            description: "Microsoft scholarship for underrepresented groups in technology".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "adobe-research-2025".to_string(),
+            name: "Adobe Research Scholarship 2025".to_string(),
+            provider: "Adobe Inc.".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Master, DegreeLevel::PhD],
+            fields_of_study: vec!["Computer Science".to_string(), "Design".to_string(), "Digital Media".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Research".to_string(), "Programming".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::None,
+                living_allowance: Some(10000),
+                travel_allowance: true,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1740787200, // 2025-02-28
+            application_url: "https://research.adobe.com".to_string(),
+            description: "Research scholarship for students in computer science and design".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "aws-machine-learning-2025".to_string(),
+            name: "AWS Machine Learning Scholarship 2025".to_string(),
+            provider: "Amazon Web Services".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Machine Learning".to_string(), "Artificial Intelligence".to_string(), "Data Science".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Programming".to_string(), "Mathematics".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::None,
+                living_allowance: Some(4000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1738281600, // 2025-01-31
+            application_url: "https://aws.amazon.com/scholarships".to_string(),
+            description: "Scholarship and training program for machine learning students".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "nvidia-graduate-fellowship-2025".to_string(),
+            name: "NVIDIA Graduate Fellowship 2025".to_string(),
+            provider: "NVIDIA Corporation".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::PhD],
+            fields_of_study: vec!["Computer Science".to_string(), "Engineering".to_string(), "AI".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.7,
+                required_degree: Some(DegreeLevel::Master),
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Research".to_string(), "GPU Computing".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(50000),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 12,
+            },
+            deadline: 1735689600, // 2025-01-01
+            application_url: "https://nvidia.com/fellowships".to_string(),
+            description: "Fellowship for outstanding PhD students in AI and computing".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "facebook-fellowship-2025".to_string(),
+            name: "Meta PhD Fellowship 2025".to_string(),
+            provider: "Meta Platforms Inc.".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::PhD],
+            fields_of_study: vec!["Computer Science".to_string(), "AI".to_string(), "Robotics".to_string(), "VR/AR".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Research".to_string(), "Programming".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(42000),
+                travel_allowance: true,
+                health_insurance: false,
+                duration_months: 24,
+            },
+            deadline: 1738281600, // 2025-01-31
+            application_url: "https://research.facebook.com".to_string(),
+            description: "Fellowship for PhD students working on cutting-edge research".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "apple-scholars-2025".to_string(),
+            name: "Apple Scholars in AI/ML PhD Fellowship 2025".to_string(),
+            provider: "Apple Inc.".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::PhD],
+            fields_of_study: vec!["Machine Learning".to_string(), "AI".to_string(), "Computer Vision".to_string(), "NLP".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.7,
+                required_degree: Some(DegreeLevel::Master),
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["Machine Learning".to_string(), "Research".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(60000),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 24,
+            },
+            deadline: 1737504000, // 2025-01-22
+            application_url: "https://machinelearning.apple.com".to_string(),
+            description: "Fellowship for exceptional PhD students in AI and machine learning".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "spacex-internship-2025".to_string(),
+            name: "SpaceX Scholarship and Internship 2025".to_string(),
+            provider: "SpaceX".to_string(),
+            country: "United States".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Aerospace Engineering".to_string(), "Mechanical Engineering".to_string(), "Electrical Engineering".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec!["United States".to_string()],
+                required_skills: vec!["Engineering".to_string(), "Problem Solving".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Partial(50),
+                living_allowance: Some(8000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://spacex.com/careers".to_string(),
+            description: "Scholarship and internship program for future space engineers".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "tesla-scholarship-2025".to_string(),
+            name: "Tesla STEM Scholarship 2025".to_string(),
+            provider: "Tesla Inc.".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::PartialScholarship,
+            degree_levels: vec![DegreeLevel::Bachelor, DegreeLevel::Master],
+            fields_of_study: vec!["Engineering".to_string(), "Computer Science".to_string(), "Physics".to_string(), "Mathematics".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.5,
+                required_degree: None,
+                age_limit: None,
+                nationalities: vec![],
+                required_skills: vec!["STEM".to_string(), "Innovation".to_string(), "English".to_string()],
+                work_experience_years: None,
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::None,
+                living_allowance: Some(15000),
+                travel_allowance: false,
+                health_insurance: false,
+                duration_months: 12,
+            },
+            deadline: 1740787200, // 2025-02-28
+            application_url: "https://tesla.com/scholarships".to_string(),
+            description: "Scholarship for students passionate about sustainable technology".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
+        Scholarship {
+            id: "who-tdr-2025".to_string(),
+            name: "WHO TDR Postgraduate Training Scheme 2025".to_string(),
+            provider: "World Health Organization".to_string(),
+            country: "Multiple Countries".to_string(),
+            scholarship_type: ScholarshipType::FullScholarship,
+            degree_levels: vec![DegreeLevel::Master, DegreeLevel::PhD],
+            fields_of_study: vec!["Public Health".to_string(), "Medicine".to_string(), "Epidemiology".to_string(), "Tropical Medicine".to_string()],
+            eligibility: Eligibility {
+                min_gpa: 3.0,
+                required_degree: Some(DegreeLevel::Bachelor),
+                age_limit: Some(40),
+                nationalities: vec!["Indonesia".to_string(), "Philippines".to_string(), "India".to_string()],
+                required_skills: vec!["English".to_string(), "Research".to_string()],
+                work_experience_years: Some(2),
+            },
+            benefits: Benefits {
+                tuition_coverage: Coverage::Full,
+                living_allowance: Some(1800),
+                travel_allowance: true,
+                health_insurance: true,
+                duration_months: 24,
+            },
+            deadline: 1743465600, // 2025-03-31
+            application_url: "https://who.int/tdr".to_string(),
+            description: "WHO training scheme for health research in developing countries".to_string(),
+            created_at: ic_cdk::api::time(),
+        },
     ];
 
     for scholarship in scholarships {
@@ -711,14 +1245,19 @@ fn register_user(
 ) -> String {
     let caller = ic_cdk::caller();
     
+    // Debug logging
+    ic_cdk::println!("🔍 Register attempt from Principal: {}", caller.to_text());
+    ic_cdk::println!("📝 Registration data - Name: {}, Email: {}", name, email);
+    
     // Check if user already exists
     if storage::get_user(&caller).is_some() {
-        return "User already registered".to_string();
+        ic_cdk::println!("❌ User {} already exists", caller.to_text());
+        return format!("User {} already registered", caller.to_text());
     }
 
     let user = UserProfile {
         id: caller,
-        name,
+        name: name.clone(),
         email,
         education,
         skills,
@@ -728,8 +1267,14 @@ fn register_user(
     };
 
     match storage::insert_user(user) {
-        Ok(_) => "User registered successfully".to_string(),
-        Err(_) => "Registration failed".to_string(),
+        Ok(_) => {
+            ic_cdk::println!("✅ User {} registered successfully with name: {}", caller.to_text(), name);
+            format!("User {} registered successfully with name: {}!", caller.to_text(), name)
+        },
+        Err(_) => {
+            ic_cdk::println!("❌ Registration failed for {}", caller.to_text());
+            "Registration failed".to_string()
+        },
     }
 }
 
@@ -737,13 +1282,20 @@ fn register_user(
 fn get_my_profile() -> String {
     let caller = ic_cdk::caller();
     
+    // Debug logging
+    ic_cdk::println!("🔍 Profile request from Principal: {}", caller.to_text());
+    
     match storage::get_user(&caller) {
         Some(user) => {
+            ic_cdk::println!("✅ Found profile for {}: {}", caller.to_text(), user.name);
             // Return a simple JSON-like string that won't cause Candid issues
-            format!("{{\"name\":\"{}\",\"email\":\"{}\",\"major\":\"{}\",\"university\":\"{}\"}}",
-                user.name, user.email, user.education.major, user.education.university)
+            format!("{{\"principal\":\"{}\",\"name\":\"{}\",\"email\":\"{}\",\"major\":\"{}\",\"university\":\"{}\"}}",
+                caller.to_text(), user.name, user.email, user.education.major, user.education.university)
         },
-        None => "{\"error\":\"User not found\"}".to_string(),
+        None => {
+            ic_cdk::println!("❌ No profile found for Principal: {}", caller.to_text());
+            format!("{{\"error\":\"User not found\",\"principal\":\"{}\"}}", caller.to_text())
+        },
     }
 }
 

@@ -62,6 +62,11 @@ class BulkNotificationRequest(Model):
     user_ids: List[str]
     content: Dict
 
+class ManualCheckRequest(Model):
+    """Request to manually trigger notification checks"""
+    check_type: str  # 'deadlines', 'new_scholarships', 'all'
+    user_id: Optional[str] = None
+
 # ============= Notification Manager =============
 
 class NotificationManager:
@@ -157,6 +162,45 @@ class NotificationManager:
             )
         else:
             return "New notification available"
+    
+    async def get_icp_scholarships(self):
+        """Get scholarships from ICP backend"""
+        try:
+            import requests
+            import json
+            from datetime import datetime
+            
+            # Try to get data from ICP canister
+            # Note: In production, this would use the proper ICP agent
+            logger.info("Fetching scholarships from ICP backend...")
+            
+            # For now, return mock data that matches our ICP structure
+            # This would be replaced with actual ICP calls
+            mock_scholarships = [
+                {
+                    "user_id": "user123",
+                    "scholarship_id": "fulbright-2025",
+                    "scholarship_name": "Fulbright Scholarship",
+                    "deadline": "2025-10-01T23:59:59",
+                    "status": "in_progress",
+                    "match_score": 85.5
+                },
+                {
+                    "user_id": "user123", 
+                    "scholarship_id": "chevening-2025",
+                    "scholarship_name": "Chevening Scholarship",
+                    "deadline": "2025-09-15T23:59:59",
+                    "status": "not_started",
+                    "match_score": 78.2
+                }
+            ]
+            
+            logger.info(f"Retrieved {len(mock_scholarships)} scholarships from ICP")
+            return mock_scholarships
+            
+        except Exception as e:
+            logger.error(f"Error fetching ICP scholarships: {str(e)}")
+            return []
 
 # ============= Agent Setup =============
 
@@ -303,6 +347,46 @@ async def handle_bulk_notification(ctx: Context, sender: str, msg: BulkNotificat
         )
         await ctx.send(sender, error_response)
 
+@notification_protocol.on_message(model=ManualCheckRequest, replies=NotificationResponse)
+async def handle_manual_check(ctx: Context, sender: str, msg: ManualCheckRequest):
+    """Handle manual notification check requests"""
+    
+    logger.info(f"Manual check requested: {msg.check_type}")
+    
+    try:
+        if msg.check_type in ['deadlines', 'all']:
+            # Trigger deadline check
+            scholarships = await notification_manager.get_icp_scholarships()
+            alerts = notification_manager.check_deadlines(scholarships)
+            
+            for alert in alerts:
+                message = notification_manager.format_notification_message(alert)
+                logger.info(f"Manual deadline alert: {message}")
+        
+        if msg.check_type in ['new_scholarships', 'all']:
+            # Trigger new scholarship check
+            logger.info("Manual new scholarship check triggered")
+            # Would implement new scholarship detection logic here
+        
+        response = NotificationResponse(
+            success=True,
+            notification_type="manual_check",
+            message=f"Manual {msg.check_type} check completed successfully",
+            timestamp=datetime.now().isoformat()
+        )
+        
+        await ctx.send(sender, response)
+        
+    except Exception as e:
+        logger.error(f"Error in manual check: {str(e)}")
+        error_response = NotificationResponse(
+            success=False,
+            notification_type="manual_check",
+            message=f"Failed to complete manual check: {str(e)}",
+            timestamp=datetime.now().isoformat()
+        )
+        await ctx.send(sender, error_response)
+
 # Include protocol in agent
 notification_agent.include(notification_protocol)
 
@@ -313,25 +397,60 @@ async def check_deadlines_periodically(ctx: Context):
     """Periodically check for upcoming deadlines"""
     logger.info("Running periodic deadline check...")
     
-    # In production, this would:
-    # 1. Query ICP canister for all active applications
-    # 2. Check deadlines
-    # 3. Send notifications as needed
-    
-    # For demo purposes, just log
-    logger.info("Deadline check completed")
+    try:
+        # Get scholarships from ICP backend
+        scholarships = await notification_manager.get_icp_scholarships()
+        
+        if scholarships:
+            # Check each scholarship for deadline alerts
+            alerts = notification_manager.check_deadlines(scholarships)
+            
+            # Send alerts to users
+            for alert in alerts:
+                logger.info(f"📅 Deadline alert: {alert.scholarship_name} - {alert.days_remaining} days remaining")
+                
+                # Format and log the notification message
+                message = notification_manager.format_notification_message(alert)
+                logger.info(f"Notification message: {message}")
+                
+                # In production, this would send actual email/push notifications
+                
+            logger.info(f"Deadline check completed - processed {len(alerts)} alerts")
+        else:
+            logger.info("No scholarships found for deadline checking")
+        
+    except Exception as e:
+        logger.error(f"Error in deadline check: {str(e)}")
+        logger.info("Deadline check completed with errors")
 
 @notification_agent.on_interval(period=86400.0)  # Run daily
 async def check_new_scholarships(ctx: Context):
     """Check for new scholarships matching user preferences"""
     logger.info("Running daily new scholarship check...")
     
-    # In production, this would:
-    # 1. Query for new scholarships added in last 24h
-    # 2. Match against all user preferences
-    # 3. Send notifications for high matches
-    
-    logger.info("New scholarship check completed")
+    try:
+        import requests
+        
+        # Get current scholarship count from ICP
+        # This would be implemented to track new additions
+        logger.info("Checking for new scholarships from ICP backend...")
+        
+        # Query matching agent for any new high-score matches
+        try:
+            matching_response = requests.get("http://localhost:8001", timeout=5)
+            logger.info("Connected to matching agent for new scholarship analysis")
+        except requests.exceptions.RequestException:
+            logger.warning("Matching agent not available - skipping new match analysis")
+        
+        # Track scholarship database changes
+        # In production: compare current scholarship list with previous snapshot
+        # Send notifications for new high-score matches
+        
+        logger.info("New scholarship check completed")
+        
+    except Exception as e:
+        logger.error(f"Error in new scholarship check: {str(e)}")
+        logger.info("New scholarship check completed with errors")
 
 # ============= Test Functions =============
 

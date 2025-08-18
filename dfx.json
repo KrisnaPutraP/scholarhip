@@ -10,6 +10,10 @@
       "type": "assets",
       "source": ["src/scholarship_frontend/dist"],
       "dependencies": ["scholarship_backend"]
+    },
+    "internet_identity": {
+      "type": "pull",
+      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai"
     }
   },
   "defaults": {

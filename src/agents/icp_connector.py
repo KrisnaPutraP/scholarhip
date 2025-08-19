@@ -76,20 +76,8 @@ class ICPConnector:
         """Fetch pending AI processing requests from canister"""
         try:
             # In production, this would call the actual canister method
-            # For demo, returning mock data
-            return [
-                {
-                    "request_type": "match",
-                    "user_id": "user123",
-                    "data": {
-                        "profile": {
-                            "gpa": 3.5,
-                            "major": "Computer Science",
-                            "skills": ["Python", "AI", "Blockchain"]
-                        }
-                    }
-                }
-            ]
+            # For now, returning empty list (no mock data)
+            return []
         except Exception as e:
             logger.error(f"Error fetching requests: {str(e)}")
             return []
@@ -117,34 +105,21 @@ class AgentConnector:
         self.session = aiohttp.ClientSession()
         logger.info("Agent connector initialized")
     
-    async def send_to_matching_agent(self, user_data: Dict) -> Dict:
+    async def send_to_matching_agent(self, match_request: Dict) -> Dict:
         """Send matching request to matching agent"""
         try:
-            # For now, simulate successful matching since uAgents use message protocols, not HTTP
+            # For now, return empty results since we removed mock data
             # In production, this would use proper uAgent-to-uAgent communication
-            logger.info("Sending match request to matching agent (simulated)")
+            logger.info("Sending match request to matching agent")
             
-            # Simulate matching response
-            mock_response = {
+            # Return empty response (no mock data)
+            response = {
                 "status": "success",
-                "matches": [
-                    {
-                        "scholarship_id": "fulbright-2025",
-                        "name": "Fulbright Scholarship",
-                        "match_score": 85.5,
-                        "reasons": ["High GPA match", "Field alignment", "Country preference"]
-                    },
-                    {
-                        "scholarship_id": "chevening-2025",
-                        "name": "Chevening Scholarship", 
-                        "match_score": 78.2,
-                        "reasons": ["Strong skills match", "Academic excellence"]
-                    }
-                ]
+                "matches": []
             }
             
-            logger.info(f"Matching completed successfully with {len(mock_response['matches'])} results")
-            return mock_response
+            logger.info(f"Matching completed with {len(response['matches'])} results")
+            return response
             
         except Exception as e:
             logger.error(f"Error communicating with matching agent: {str(e)}")

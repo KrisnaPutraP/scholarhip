@@ -867,6 +867,27 @@ async function checkIfUserRegistered() {
 }
 
 function parseScholarshipResponse(response) {
+  try {
+    // Try to parse the new JSON-like response format
+    if (response && response.includes('"scholarships":[')) {
+      const jsonData = JSON.parse(response);
+      return jsonData.scholarships.map(scholarship => ({
+        id: scholarship.id,
+        name: scholarship.name,
+        provider: scholarship.provider,
+        country: scholarship.country,
+        funding_type: formatScholarshipType(scholarship.type),
+        field_of_study: scholarship.fields.join(', '),
+        description: scholarship.description,
+        degree_level: formatDegreeLevel(scholarship.degree_levels),
+        deadline: formatDeadline(scholarship.deadline)
+      }));
+    }
+  } catch (error) {
+    console.log('Failed to parse JSON response, trying fallback:', error);
+  }
+  
+  // Fallback to old parsing method
   if (!response || !response.includes('scholarships:')) {
     return [];
   }
@@ -889,7 +910,8 @@ function parseScholarshipResponse(response) {
         funding_type: 'Full Scholarship',
         field_of_study: 'Various',
         description: 'Government sponsored scholarship program',
-        degree_level: 'Master/PhD'
+        degree_level: 'Master/PhD',
+        deadline: 'Not specified'
       });
     }
   });
@@ -922,6 +944,8 @@ function displayScholarships(scholarships, title, showMatching) {
           '<p><strong>Country:</strong> ' + scholarship.country + '</p>' +
           '<p><strong>Type:</strong> ' + scholarship.funding_type + '</p>' +
           '<p><strong>Field:</strong> ' + scholarship.field_of_study + '</p>' +
+          '<p><strong>Degree Level:</strong> ' + (scholarship.degree_level || 'Various') + '</p>' +
+          '<p><strong>Deadline:</strong> ' + (scholarship.deadline || 'Not specified') + '</p>' +
         '</div>' +
         '<p style="margin: 10px 0 0 0; color: #555;">' + scholarship.description + '</p>' +
       '</div>';
@@ -951,4 +975,53 @@ function displaySample() {
   ];
   
   displayScholarships(sampleScholarships, "Sample Scholarships", false);
+}
+
+// Helper functions to format backend data
+function formatScholarshipType(type) {
+  const typeMap = {
+    'FullScholarship': 'Full Scholarship',
+    'PartialScholarship': 'Partial Scholarship', 
+    'ResearchGrant': 'Research Grant',
+    'ExchangeProgram': 'Exchange Program'
+  };
+  return typeMap[type] || type;
+}
+
+function formatDegreeLevel(levels) {
+  if (!levels || levels.length === 0) {
+    return 'Various';
+  }
+  
+  const levelMap = {
+    'HighSchool': 'High School',
+    'Bachelor': 'Bachelor',
+    'Master': 'Master', 
+    'PhD': 'PhD'
+  };
+  
+  if (Array.isArray(levels)) {
+    return levels.map(level => levelMap[level] || level).join(', ');
+  }
+  
+  return levelMap[levels] || levels;
+}
+
+function formatDeadline(deadline) {
+  if (!deadline) {
+    return 'Not specified';
+  }
+  
+  try {
+    // Backend provides Unix timestamps in seconds, convert to milliseconds for JavaScript Date
+    const date = new Date(deadline * 1000);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (error) {
+    console.error('Error formatting deadline:', error);
+    return 'Invalid date';
+  }
 }
